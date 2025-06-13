@@ -4,7 +4,7 @@ import Car2 from "./assets/image 8.png";
 
 export default function Section() {
   return (
-    <section className="container mx-auto mt-20 px-4">
+    <section className="container mx-auto mt-25 px-4">
       <div className="flex flex-col lg:flex-row justify-between gap-6">
         {/* Card 1 */}
         <div className="flex-1 p-6 rounded-lg shadow-md bg-blue-500 flex flex-col">
