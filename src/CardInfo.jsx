@@ -8,7 +8,7 @@ export default function CardInfo() {
 
   useEffect(() => {
     const updateCard = carData.filter((item) => item.id.toString() === id);
-    setSingleCard(updateCard[0] || null); // Birinchi elementni olamiz yoki null qaytaramiz
+    setSingleCard(updateCard[0] );
   }, [id]);
 
   return (
