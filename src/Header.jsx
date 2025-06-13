@@ -3,7 +3,9 @@ import { CiSearch } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoMdSettings } from "react-icons/io";
-import Person from "../assets/Profil.png";
+import Person from "./assets/Profil.png";
+import favoriteStore from "./store/favoriteStore";
+import { NavLink } from "react-router-dom";
 
 export default function Header({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,6 +15,8 @@ export default function Header({ onSearch }) {
     setSearchTerm(value);
     if (onSearch) onSearch(value);
   };
+
+  const {favorites} = favoriteStore();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
@@ -33,7 +37,10 @@ export default function Header({ onSearch }) {
           </div>
         </div>
         <div className="flex items-center gap-4 sm:gap-6 text-xl">
-          <CiHeart />
+          <NavLink className="flex items-center" to="/favorites">
+            <CiHeart />
+          <span>🛒{favorites.length}</span>
+          </NavLink>
           <IoIosNotificationsOutline />
           <IoMdSettings />
           <img src={Person} alt="person" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full" />

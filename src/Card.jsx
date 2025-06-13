@@ -3,25 +3,46 @@ import { CiHeart } from "react-icons/ci";
 import { FaGasPump } from "react-icons/fa";
 import { FaCar } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import favoriteStore from "./store/favoriteStore";
 
 const Card = ({ car }) => {
   const [isLiked, setIsLiked] = useState(car.isLiked);
+  const navigate = useNavigate();
+
+  // favorites ni xavfsiz olish va array sifatida ishlash
+  const favorites = Array.isArray(favoriteStore((state) => state.favorites))
+    ? favoriteStore((state) => state.favorites)
+    : [];
+  const addToFavorites = favoriteStore((state) => state.addToFavorites);
+  const removeFromFavorites = favoriteStore((state) => state.removeFromFavorites);
 
   const handleLike = () => {
-    setIsLiked(!isLiked);
+    const isAlreadyFavorite = Array.isArray(favorites) && favorites.some((fav) => fav.id === car.id);
+    if (isAlreadyFavorite) {
+      removeFromFavorites(car.id); // Agar favorites'da bo'lsa, o'chirish
+    } else {
+      addToFavorites(car); // Aks holda qo'shish
+    }
+    setIsLiked(!isLiked); // Local holatni o'zgartirish
+  };
+
+  const handleSubmit = (id) => {
+    navigate(`/cardinfo/${id}`);
   };
 
   return (
     <section>
-      <div>
+      <div onClick={() => handleSubmit(car.id)}>
         <div className="bg-white rounded-lg shadow-md p-4 relative">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-semibold">{car.name}</h3>
             <CiHeart
-              className={`cursor-pointer ${
-                isLiked ? "text-red-500" : "text-gray-400"
-              }`}
-              onClick={handleLike}
+              className={`cursor-pointer ${isLiked ? "text-red-500" : "text-gray-400"}`}
+              onClick={(e) => {
+                e.stopPropagation(); // Card bosilishini to'xtatadi
+                handleLike();
+              }}
             />
           </div>
           <p className="text-sm text-gray-500 mb-2">{car.category}</p>

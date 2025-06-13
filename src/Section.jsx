@@ -1,6 +1,6 @@
 import React from "react";
-import Car1 from "../assets/image 7.png";
-import Car2 from "../assets/image 8.png";
+import Car1 from "./assets/image 7.png";
+import Car2 from "./assets/image 8.png";
 
 export default function Section() {
   return (

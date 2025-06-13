@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Header from "./components/Header";
-import Section from "./components/Section";
-import Card from "./components/Card";
-import Footer from "./components/Footer";
+import Header from "./Header";
+import Section from "./Section";
+import Footer from "./Footer";
+import CardInfo from "./CardInfo";
+import Card from "./Card";
 
-const App = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const carData = [
+export const carData = [
     {
       id: 1,
       name: "Koenigsegg",
@@ -112,6 +111,9 @@ const App = () => {
       onRent: "Rent Now",
     },
   ];
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  
   const filteredCars = carData.filter((car) =>
     car.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -120,6 +122,9 @@ const App = () => {
     <div className="container mx-auto p-4">
       <Header onSearch={setSearchTerm} />
       <Section />
+      
+      {/*  Card komponenti  */}
+
       <div className="mt-16">
         <h3 className="text-2xl font-bold mb-4">Popular Cars</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -133,7 +138,6 @@ const App = () => {
           </button>
         </div>
       </div>
-      {/*  Card komponenti  */}
       <Footer />
     </div>
   );
