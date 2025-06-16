@@ -6,7 +6,7 @@ import Person from "./assets/Profil.png";
 import favoriteStore from "./store/favoriteStore";
 import { NavLink } from "react-router-dom";
 
-export default function Header({ onSearch }) {
+const Header = React.memo(({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { favorites } = favoriteStore();
 
@@ -17,15 +17,14 @@ export default function Header({ onSearch }) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <nav className="flex flex-wrap justify-between items-center gap-4 p-4 max-w-7xl mx-auto">
-        {/* Logo & Search */}
         <div className="flex flex-wrap items-center gap-4 sm:gap-8 flex-grow">
-          <a className="text-blue-600 font-bold text-lg sm:text-xl cursor-pointer" href="">
+          <a className="text-blue-600 font-bold text-lg sm:text-xl" href="">
             MORENT
           </a>
-          <div className="relative flex-grow sm:flex-grow-0 w-full sm:w-auto">
-            <div className="relative bg-white rounded-xl border border-gray-300 shadow-md w-full sm:w-64">
+          <div className="relative flex-grow sm:flex-grow-0 w-full sm:w-64">
+            <div className="relative bg-white rounded-xl border border-gray-300 w-full">
               <CiSearch className="text-2xl absolute left-3 top-2.5 text-gray-500" />
               <input
                 className="w-full p-2 pl-10 rounded-xl border-none focus:outline-none"
@@ -37,8 +36,6 @@ export default function Header({ onSearch }) {
             </div>
           </div>
         </div>
-
-        {/* Icons */}
         <div className="flex items-center gap-4 sm:gap-6 text-xl">
           <NavLink
             to="/favorites"
@@ -50,6 +47,7 @@ export default function Header({ onSearch }) {
           <IoIosNotificationsOutline className="hover:text-blue-600 transition cursor-pointer" />
           <IoMdSettings className="hover:text-blue-600 transition cursor-pointer" />
           <img
+            loading="lazy"
             src={Person}
             alt="person"
             className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover cursor-pointer hover:scale-105 transition"
@@ -58,4 +56,6 @@ export default function Header({ onSearch }) {
       </nav>
     </header>
   );
-}
+});
+
+export default Header;
